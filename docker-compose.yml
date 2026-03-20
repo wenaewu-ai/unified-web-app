@@ -1,0 +1,17 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"  # <--- 關鍵：把主機的 8080 轉到容器的 80
+    networks:
+      - app-network
+
+  backend:
+    build: ./backend
+    # 後端不需要 ports，因為我們透過 Nginx 轉發，安全第一！
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
